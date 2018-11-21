@@ -1,15 +1,15 @@
 {
   "basepath": "/",
-  "url": "https://hoverboard-master.firebaseapp.com/",
+  "url": "https://whooole-univers.firebaseapp.com/",
   "analytics": "UA-43643469-9",
   "prefix": "/",
   "firebase": {
-    "apiKey": "AIzaSyCaSkhtHekxAqXXzzbuNs2s6CpGdhZdta8",
-    "authDomain": "hoverboard-master.firebaseapp.com",
-    "databaseURL": "https://hoverboard-master.firebaseio.com",
-    "projectId": "hoverboard-master",
-    "storageBucket": "hoverboard-master.appspot.com",
-    "messagingSenderId": "516409946568"
+    "apiKey": "AIzaSyAPTIt3mBFmUuFBsGKcQs27Lv_JN_unE2w",
+    "authDomain": "whooole-univers.firebaseapp.com",
+    "databaseURL": "https://whooole-univers.firebaseio.com",
+    "projectId": "whooole-univers",
+    "storageBucket": "whooole-univers.appspot.com",
+    "messagingSenderId": "181342879503"
   },
-  "googleMapApiKey": "AIzaSyDWy6O98n-ueoVaYPWRPve23vjm3JP08gw"
+  "googleMapApiKey": ""
 }

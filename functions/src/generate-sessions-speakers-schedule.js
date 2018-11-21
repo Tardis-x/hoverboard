@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import { firestore } from 'firebase-admin';
 import mapSessionsSpeakersSchedule from './schedule-generator/speakers-sessions-schedule-map';
 import mapSessionsSpeakers from './schedule-generator/speakers-sessions-map';
+import { saveFirestoreData, saveRealTimeData } from './firestore-to-realtime/firebase-utils';
 
 export const sessionsWrite = functions.firestore.document('sessions/{sessionId}').onWrite( async () => {
     return generateAndSaveData();
@@ -60,18 +61,15 @@ async function generateAndSaveData(changedSpeaker) {
         generatedData.speakers[changedSpeaker.id] = changedSpeaker;
     }
 
-    saveGeneratedData(generatedData.sessions, 'generatedSessions');
-    saveGeneratedData(generatedData.speakers, 'generatedSpeakers');
-    saveGeneratedData(generatedData.schedule, 'generatedSchedule');
-}
-
-function saveGeneratedData(data, collectionName) {
-    if (!data || !Object.keys(data).length) return;
-
-    for (let index = 0; index < Object.keys(data).length; index++) {
-        const key = Object.keys(data)[index];
-        firestore().collection(collectionName)
-            .doc(key)
-            .set(data[key]);
-    }
+    return Promise.all([
+      saveFirestoreData(generatedData.sessions, 'generatedSessions'),
+      saveFirestoreData(generatedData.speakers, 'generatedSpeakers'),
+      saveFirestoreData(generatedData.schedule, 'generatedSchedule'),
+      saveRealTimeData(generatedData.sessions, 'generatedSessions'),
+      saveRealTimeData(generatedData.speakers, 'generatedSpeakers'),
+      saveRealTimeData(generatedData.schedule, 'generatedSchedule'),
+      saveRealTimeData(sessions, 'sessions'),
+      saveRealTimeData(speakers, 'speakers'),
+      saveRealTimeData(schedule, 'schedule'),
+    ]);
 }
